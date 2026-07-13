@@ -31,8 +31,12 @@ else
   fi
 
   if [ "$is_client_change" -ge 1 ]; then
-    echo "Running client check..."
-    npx lint-staged --cwd app/client
+    if command -v npx >/dev/null 2>&1; then
+      echo "Running client check..."
+      npx lint-staged --cwd app/client
+    else
+      echo "npx not found, skipping client lint-staged check"
+    fi
   else
     echo "Skipping client side check..."
   fi
